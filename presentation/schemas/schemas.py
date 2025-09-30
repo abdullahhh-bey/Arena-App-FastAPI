@@ -49,10 +49,7 @@ class CourtRuleInfo(BaseModel):
 
 
 
-class CourtWithRules(BaseModel):
-    id : int
-    name : str
-    type : str
+class CourtWithRules(CourtInfo):
     courtRule : Optional[CourtRuleInfo] = None
     
     class Config:
