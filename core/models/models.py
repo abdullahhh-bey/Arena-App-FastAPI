@@ -1,15 +1,15 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from ...infrastructure.Db.database import Base, engine
+from infrastructure.Db.database import Base, engine
 
 class Arena(Base):
     
     __tablename__ = "arenas"
     
     id = Column(Integer , primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    email = Column(String , nullable=False , index=True)
-    location = Column(String, nullable=False)
+    name = Column(String(100), nullable=False)
+    location = Column(String(255), nullable=False)
+    email = Column(String(255) , nullable=False , index=True)
     
     courts = relationship("Court" , back_populates="arena")
     
@@ -21,7 +21,7 @@ class Court(Base):
     
     id = Column(Integer , primary_key=True, index=True)
     name = Column(String, nullable=False)
-    type = Column(String , nullable=False , index=True)
+    type = Column(String(255) , nullable=False , index=True)
     
     arena_id = Column(Integer , ForeignKey("arenas.id"))
     arena = relationship("Arena" , back_populates="courts")
