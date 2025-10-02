@@ -78,3 +78,8 @@ class AvailableSlots(BaseModel):
     class Config:
         from_attributes=True
 
+class CourtWithSlots(CourtInfo):
+    slots : List[AvailableSlots] = None
+    
+    class Config:
+        from_attributes=True
