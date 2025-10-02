@@ -1,5 +1,6 @@
 from pydantic import Field, EmailStr, BaseModel
 from typing import List, Optional
+from datetime import time, date
 
 class AddArena(BaseModel):
     name : str = Field(... , description="Name should be valid")
@@ -55,3 +56,14 @@ class CourtWithRules(CourtInfo):
     
     class Config:
         from_attributes=True
+        
+        
+class CreateTimeSlots(BaseModel):
+    court_id : int = Field(...)
+    slot_date : date = Field(...)
+    start : time = Field(...)
+    end : time = Field(...)
+    price : int = Field(...)
+    status : bool = Field(...)
+    
+    
