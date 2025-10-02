@@ -62,16 +62,16 @@ class CourtWithRules(CourtInfo):
 class CreateTimeSlots(BaseModel):
     court_id : int = Field(...)
     slot_date : date = Field(...)
-    start : time = Field(...)
-    end : time = Field(...)
+    start : int = Field(...)
+    end : int = Field(...)
     price : int = Field(...)
     status : bool = Field(...)
     
 class AvailableSlots(BaseModel):
     court_id : int 
     slot_date : date 
-    start : time
-    end : time 
+    start : str
+    end : str 
     price : int 
     status : bool 
     
