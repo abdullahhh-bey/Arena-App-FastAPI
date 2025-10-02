@@ -14,7 +14,7 @@ class AddCourt(BaseModel):
     
     
 class AddCourtRule(BaseModel):
-    court_id : int = Field(... , description="Court Id should be enterd")
+    court_id : int = Field(... )
     time_interval : int = Field(...)
     minimum_slot_booking : int = Field(...)
     
@@ -43,6 +43,7 @@ class CourtRuleInfo(BaseModel):
     id : int
     time_interval : int
     minimum_slot_booking : int
+    court_id : int
     
     class Config:
         from_attributes=True

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from ...presentation.schemas.schemas import AddArena , ArenaInfo
-from ...core.models.models import Arena
+from presentation.schemas.schemas import AddArena , ArenaInfo
+from core.models.models import Arena
 from typing import List, Optional
 
 
@@ -18,7 +18,7 @@ class ArenaService:
         
         self.db.add(new_arena)
         self.db.commit()
-        self.db.refres(new_arena)
+        self.db.refresh(new_arena)
         return new_arena
     
     
