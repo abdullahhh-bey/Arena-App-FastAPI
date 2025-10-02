@@ -24,6 +24,7 @@ class CourtInfo(BaseModel):
     id : int
     name : str
     type : str
+    arena_id : int
     
     class Config:
         from_attributes=True
@@ -66,4 +67,14 @@ class CreateTimeSlots(BaseModel):
     price : int = Field(...)
     status : bool = Field(...)
     
+class AvailableSlots(BaseModel):
+    court_id : int 
+    slot_date : date 
+    start : time
+    end : time 
+    price : int 
+    status : bool 
     
+    class Config:
+        from_attributes=True
+

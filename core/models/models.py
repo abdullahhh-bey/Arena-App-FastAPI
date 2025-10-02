@@ -54,7 +54,7 @@ class TimeSlot(Base):
     id = Column(Integer , primary_key=True, index=True)
     start = Column(Time , nullable=False)
     end  = Column(Time  , nullable=False)
-    date = Column(Date , nullable=False)
+    slot_date = Column(Date , nullable=False)
     price = Column(Integer , nullable=False)
     status = Column(Boolean , nullable=False, default=True)
         
