@@ -84,4 +84,31 @@ class TimeSlotService:
         ]
 
 
-    # def GetAvailableSlots(self) -> List[]
+    def GetAvailableSlots(self) -> List[AvailableSlots]:
+        slots = self.db.query(TimeSlot).filter(TimeSlot.status == True).all()
+        if not slots:
+            raise HTTPException(
+                status_code=404,
+                detail="No Available Slot"
+            )
+            
+        return slots
+    
+    
+    def GetCourtWithSlots(self, id : int) -> CourtWithSlots:
+        court = self.db.query(Court).filter(Court.id == id).first()
+        
+        if court is None:
+            raise HTTPException(
+                status_code=404,
+                detail="No such court exists"
+            )
+        
+        slots = self.db.query(TimeSlot).filter(TimeSlot.status == True and TimeSlot.court_id == id).all()
+        if not slots:
+            raise HTTPException(
+                status_code=404,
+                detail="No Available Slot"
+            )
+            
+        return slots

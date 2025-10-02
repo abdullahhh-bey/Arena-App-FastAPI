@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List , Optional
 from presentation.schemas.schemas import AddCourt, CourtInfo, CourtRuleInfo, AddCourtRule, CourtWithRules
-from core.models.models import Arena , Court, CourtRule
 from infrastructure.Db.database import get_db
 from application.services.courtServices import CourtService
 
