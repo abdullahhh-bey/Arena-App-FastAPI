@@ -96,6 +96,7 @@ class TimeSlotService:
             
         slot_list = [
             AvailableSlots(
+                id = s.id,
                 court_id=s.court_id,
                 slot_date=s.slot_date,
                 start=str(s.start),  
@@ -127,6 +128,7 @@ class TimeSlotService:
             
         slot_list = [
             AvailableSlots(
+                id = s.id,
                 court_id=s.court_id,
                 slot_date=s.slot_date,
                 start=str(s.start),  

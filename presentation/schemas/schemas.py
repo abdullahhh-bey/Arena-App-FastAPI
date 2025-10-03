@@ -68,6 +68,7 @@ class CreateTimeSlots(BaseModel):
     status : bool = Field(...)
     
 class AvailableSlots(BaseModel):
+    id : int
     court_id : int 
     slot_date : date 
     start : str
