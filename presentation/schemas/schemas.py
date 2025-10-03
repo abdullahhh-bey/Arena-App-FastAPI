@@ -83,3 +83,30 @@ class CourtWithSlots(CourtInfo):
     
     class Config:
         from_attributes=True
+        
+
+class CreateBooking(BaseModel):
+    court_id : int
+    user_id : int
+    slot_id : List[int]
+    bookingDate : date
+    
+class GetBookings(BaseModel):
+    id : int
+    bookingStart : time
+    bookingEnd  : time
+    bookingDate : date
+    bookingAmount : int
+    bookingStatus : bool
+    
+    court_id : int
+    
+    class Config:
+        from_attributes=True
+        
+        
+class GetBookingsByCourt(GetBookings):
+    booked_slots : List[AvailableSlots]  
+    
+    class Config:
+        from_attributes=True

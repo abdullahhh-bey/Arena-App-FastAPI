@@ -13,14 +13,14 @@ Trouter = APIRouter(
 @Trouter.post("/", response_model=List[AvailableSlots])
 async def CreateSlots(t : CreateTimeSlots, db : Session = Depends(get_db)) -> List[AvailableSlots]:
     service = TimeSlotService(db)
-    slots = await service.AddTimeSlotsService(t)
+    slots = service.AddTimeSlotsService(t)
     return slots
 
 
 @Trouter.get("/", response_model=List[AvailableSlots])
 async def GetAvailableSlot(db : Session = Depends(get_db)) -> List[AvailableSlots]:
     service = TimeSlotService(db)
-    slots = await service.GetAvailableSlots()
+    slots =  service.GetAvailableSlots()
     return slots
 
 @Trouter.get("/courts/{id}" , response_model=CourtWithSlots)

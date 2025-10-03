@@ -10,7 +10,7 @@ class TimeSlotService:
         self.db = db
         
     def AddTimeSlotsService(self, slots: CreateTimeSlots) -> List[AvailableSlots]:
-        if slots.slot_date < datetime.date():
+        if slots.slot_date < datetime.utcnow().date():
             raise HTTPException(status_code=400, detail="Date cannot be in the past")
 
         if slots.start >= slots.end or slots.start < 0 or slots.end > 24:
@@ -70,7 +70,7 @@ class TimeSlotService:
         self.db.commit()
         self.db.refresh(new_slots[0])  
 
-        return [
+        result = [
             AvailableSlots(
                 id=s.id,
                 court_id=s.court_id,
@@ -82,17 +82,31 @@ class TimeSlotService:
             )
             for s in new_slots
         ]
+        
+        return result
 
 
     def GetAvailableSlots(self) -> List[AvailableSlots]:
-        slots = self.db.query(TimeSlot).filter(TimeSlot.status == True).all()
-        if not slots:
+        s = self.db.query(TimeSlot).filter(TimeSlot.status == True).all()
+        if not s:
             raise HTTPException(
                 status_code=404,
                 detail="No Available Slot"
             )
             
-        return slots
+        slot_list = [
+            AvailableSlots(
+                court_id=s.court_id,
+                slot_date=s.slot_date,
+                start=str(s.start),  
+                end=str(s.end),
+                price=s.price,
+                status=s.status
+            )
+            for s in s
+        ]
+        
+        return slot_list
     
     
     def GetCourtWithSlots(self, id : int) -> CourtWithSlots:
@@ -104,11 +118,29 @@ class TimeSlotService:
                 detail="No such court exists"
             )
         
-        slots = self.db.query(TimeSlot).filter(TimeSlot.status == True and TimeSlot.court_id == id).all()
+        slots = self.db.query(TimeSlot).filter(TimeSlot.status == True , TimeSlot.court_id == id).all()
         if not slots:
             raise HTTPException(
                 status_code=404,
                 detail="No Available Slot"
             )
             
-        return slots
+        slot_list = [
+            AvailableSlots(
+                court_id=s.court_id,
+                slot_date=s.slot_date,
+                start=str(s.start),  
+                end=str(s.end),
+                price=s.price,
+                status=s.status
+            )
+            for s in slots
+        ]
+
+        return CourtWithSlots(
+            id=court.id,
+            name=court.name,
+            type=court.type,
+            arena_id=court.arena_id,
+            slots=slot_list
+        )
