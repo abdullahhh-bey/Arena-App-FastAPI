@@ -123,7 +123,7 @@ class TimeSlotService:
         if not slots:
             raise HTTPException(
                 status_code=404,
-                detail="No Available Slot"
+                detail="No Slots"
             )
             
         slot_list = [

@@ -100,6 +100,13 @@ class BookingService:
                 status_code=400,
                 detail="Date cannot be in the past"
             )
+            
+        courtCheck = self.db.query(Court).filter(Court.id == id).first()
+        if courtCheck is None:
+            raise HTTPException(
+                status_code=404,
+                detail="No Court Exists"
+            )
         
         bookings = self.db.query(Booking).filter(
             Booking.court_id == id,

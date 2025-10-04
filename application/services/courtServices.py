@@ -44,6 +44,13 @@ class CourtService:
                 detail="No Court"
             )
         
+        check = self.db.query(CourtRule).filter(CourtRule.court_id == c.court_id).first()
+        if check:
+            raise HTTPException(
+                status_code=400,
+                detail="Rule for this court already exists"
+            )
+        
         new_rule = CourtRule(
             time_interval = c.time_interval,
             minimum_slot_booking = c.minimum_slot_booking,
