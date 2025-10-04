@@ -110,6 +110,7 @@ class TimeSlotService:
         return slot_list
     
     
+    
     def GetCourtWithSlots(self, id : int) -> CourtWithSlots:
         court = self.db.query(Court).filter(Court.id == id).first()
         
@@ -146,3 +147,4 @@ class TimeSlotService:
             arena_id=court.arena_id,
             slots=slot_list
         )
+
