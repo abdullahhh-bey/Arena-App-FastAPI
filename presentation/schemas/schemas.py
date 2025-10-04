@@ -1,4 +1,4 @@
-from pydantic import Field, EmailStr, BaseModel
+from pydantic import Field, EmailStr, BaseModel, ConfigDict
 from typing import List, Optional
 from datetime import time, date
 
@@ -76,8 +76,8 @@ class AvailableSlots(BaseModel):
     price : int 
     status : bool 
     
-    class Config:
-        from_attributes=True
+    model_config = ConfigDict(from_attributes=True)  # ✅ allows ORM objects
+
 
 class CourtWithSlots(CourtInfo):
     slots : List[AvailableSlots] = None

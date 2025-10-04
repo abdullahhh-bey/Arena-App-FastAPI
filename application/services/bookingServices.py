@@ -94,7 +94,13 @@ class BookingService:
     
     
     
-    def GetBookingWithCourtIdWithDate(self, id : int , date : date) -> GetBookingsByCourt:
+    def GetBookingWithCourtIdWithDate(self, id : int , date : date) -> list[GetBookingsByCourt]:
+        if date < date.today():
+            raise HTTPException(
+                status_code=400,
+                detail="Date cannot be in the past"
+            )
+        
         bookings = self.db.query(Booking).filter(
             Booking.court_id == id,
             Booking.bookingDate == date
@@ -112,12 +118,13 @@ class BookingService:
 
             slot_dtos = [
                 AvailableSlots(
+                    id = s.id,
                     court_id=s.court_id,
                     slot_date=s.slot_date,
                     start=s.start.strftime("%H:%M:%S"),
                     end=s.end.strftime("%H:%M:%S"),
                     price=s.price,
-                    status=s.status,
+                    status=s.status
                 )
                 for s in slots
             ]

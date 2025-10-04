@@ -24,8 +24,8 @@ def GetBookingsAll(db : Session = Depends(get_db)) -> List[GetBookings]:
     bookings = service.GetBookings()
     return bookings
 
-@Brouter.get("/court", response_model=GetBookingsByCourt)
-def GetBookingByCourtId(id : int , date : date, db : Session = Depends(get_db)):
+@Brouter.get("/{id}", response_model=list[GetBookingsByCourt])
+def GetBookingByCourtId(id : int , date : date = date.today(), db : Session = Depends(get_db)):
     service = BookingService(db)
     b = service.GetBookingWithCourtIdWithDate(id , date)
     return b
