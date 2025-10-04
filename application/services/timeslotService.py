@@ -1,9 +1,10 @@
 from sqlalchemy.orm import Session
 from presentation.schemas.schemas import CourtWithRules, CourtRuleInfo, CreateTimeSlots,  AvailableSlots, CourtWithSlots
-from core.models.models import Court, CourtRule, TimeSlot
+from core.models.models import Court, CourtRule, TimeSlot, Booking
 from typing import List, Optional
 from fastapi import HTTPException
 from datetime import time, datetime, timedelta
+from generateSlots import generate_time_slots
 
 class TimeSlotService:
     def __init__(self, db : Session):
@@ -148,3 +149,5 @@ class TimeSlotService:
             slots=slot_list
         )
 
+    
+    

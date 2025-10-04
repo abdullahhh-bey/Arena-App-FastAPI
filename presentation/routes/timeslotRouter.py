@@ -28,3 +28,9 @@ async def GetCourtWithSlots(id : int , db : Session = Depends(get_db)) -> CourtW
     service = TimeSlotService(db)
     courtSlots = service.GetCourtWithSlots(id)
     return courtSlots
+
+
+@Trouter.get("/dynamic-available-slots")
+def get_dynamic_slots(court_id: int, date: str, db: Session = Depends(get_db)):
+    service = TimeSlotService(db)
+    return service.GetDynamicAvailableSlots(court_id, date)

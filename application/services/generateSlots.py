@@ -16,3 +16,5 @@ def generate_time_slots(start_time, end_time, interval_minutes, court_id, date):
         slots.append(slot)
         current += timedelta(minutes=interval_minutes)
     return slots
+
+
